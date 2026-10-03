@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YouTube to MP3</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">On this computer</p>
+      <h1>YouTube to MP3</h1>
+      <p class="lede">
+        Paste a link. Get a 320 kbps MP3, with the song title and artist you type written into the file.
+      </p>
+
+      <form id="lookup-form">
+        <label for="url">YouTube link</label>
+        <div class="row">
+          <input
+            id="url"
+            name="url"
+            type="url"
+            inputmode="url"
+            placeholder="https://www.youtube.com/watch?v=…"
+            autocomplete="off"
+            required
+          />
+          <button type="submit" id="lookup">Look up</button>
+        </div>
+      </form>
+
+      <p id="message" class="message" role="status" hidden></p>
+
+      <section id="preview" hidden>
+        <div class="preview">
+          <img id="thumb" alt="" width="320" height="180" />
+          <div>
+            <p id="video-title"></p>
+            <p id="video-meta" class="meta"></p>
+            <p id="quality" class="meta"></p>
+          </div>
+        </div>
+
+        <div class="fields">
+          <label>
+            Song title
+            <input id="song-title" type="text" maxlength="200" autocomplete="off" />
+          </label>
+          <label>
+            Artist
+            <input id="artist" type="text" maxlength="200" autocomplete="off" />
+          </label>
+        </div>
+        <p id="guess" class="hint"></p>
+
+        <button type="button" id="download">Download 320 kbps MP3</button>
+        <div id="bar-wrap" class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
+          <div id="bar"></div>
+        </div>
+        <p id="status" class="status" role="status"></p>
+      </section>
+    </main>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

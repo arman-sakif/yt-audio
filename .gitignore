@@ -1,0 +1,5 @@
+bin/*
+!bin/.gitkeep
+downloads/*
+!downloads/.gitkeep
+node_modules/
