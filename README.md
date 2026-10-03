@@ -4,7 +4,7 @@ A local page that turns one YouTube link into a 320 kbps MP3. Song title and art
 
 ## Run
 
-Node.js 22 or newer is required.
+[Node.js 22 or newer](#install-nodejs) is required.
 
 Double-click `start.cmd`, or from this folder run:
 
@@ -32,4 +32,25 @@ YouTube's best audio is usually Opus or AAC around 128–160 kbps. This app enco
 node --test
 ```
 
-Only download audio you have the right to keep.
+## Install Node.js
+
+This is the only program you need to install. The first launch of the app downloads yt-dlp and ffmpeg for you.
+
+1. Open [nodejs.org](https://nodejs.org).
+2. Download the Windows installer labeled LTS. Its version number needs to be 22 or newer.
+3. Run the installer and accept the defaults. Those defaults add `node` to your PATH.
+4. Close any open terminal windows so they pick up the new command.
+
+Check the install from a new PowerShell window:
+
+```powershell
+node --version
+```
+
+The number it prints should be 22 or higher. Then go back to [Run](#run).
+
+From PowerShell, this installs the same LTS release:
+
+```powershell
+winget install OpenJS.NodeJS.LTS
+```

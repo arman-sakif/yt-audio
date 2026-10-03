@@ -3,3 +3,5 @@ bin/*
 downloads/*
 !downloads/.gitkeep
 node_modules/
+release/*
+!release/create-release.cmd
