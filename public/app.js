@@ -16,6 +16,8 @@ const originalLabel = document.querySelector("#original-label");
 const downloadButton = document.querySelector("#download");
 const spotifyBox = document.querySelector("#spotify");
 const spotifySetup = document.querySelector("#spotify-setup");
+const spotifyRedirectRow = document.querySelector("#spotify-redirect-row");
+const spotifyRedirect = document.querySelector("#spotify-redirect");
 const spotifyConnectRow = document.querySelector("#spotify-connect-row");
 const spotifyConnect = document.querySelector("#spotify-connect");
 const spotifyOn = document.querySelector("#spotify-on");
@@ -125,7 +127,7 @@ spotifyDisconnect.addEventListener("click", async () => {
     const response = await fetch("/api/spotify/logout", { method: "POST" });
     const data = await readBody(response);
     if (!response.ok) throw new Error(data.error || "Could not disconnect Spotify.");
-    spotify = { state: "disconnected" };
+    spotify = { state: "disconnected", redirectUri: spotify.redirectUri };
     spotifyOn.dataset.ready = "";
     renderSpotify();
     setNotice("Spotify is disconnected on this computer.");
@@ -288,7 +290,7 @@ function startSpotifyLike() {
     .then(async (response) => {
       const data = await readBody(response);
       if (data.disconnected) {
-        spotify = { state: "disconnected" };
+        spotify = { state: "disconnected", redirectUri: spotify.redirectUri };
         spotifyOn.dataset.ready = "";
         renderSpotify();
       }
@@ -306,6 +308,8 @@ function renderSpotify() {
   const state = spotify.state;
   spotifyBox.hidden = state === "loading";
   spotifySetup.hidden = state !== "unconfigured";
+  spotifyRedirect.textContent = spotify.redirectUri || "";
+  spotifyRedirectRow.hidden = state === "loading" || state === "connected" || !spotify.redirectUri;
   spotifyConnectRow.hidden = state !== "disconnected";
   spotifyOn.hidden = state !== "connected";
   if (state === "connected") {

@@ -54,7 +54,7 @@ async function handle(req, res) {
   }
 
   if (req.method === "GET" && url.pathname === "/api/spotify/status") {
-    sendJson(res, 200, await spotifyStatus());
+    sendJson(res, 200, await spotifyStatus(port));
     return;
   }
 

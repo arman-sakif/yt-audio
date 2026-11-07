@@ -30,7 +30,9 @@ Spotify has to authorize the app once:
 
 1. Open the [Spotify developer dashboard](https://developer.spotify.com/dashboard) and create an app. A personal app in development mode is enough for your own account.
 2. The Spotify account that owns the app needs Premium. If Premium lapses, Spotify rejects the save.
-3. In the app settings, add this redirect URI with no port number: `http://127.0.0.1/api/spotify/callback`
+3. In the app settings, add this redirect URI, including the port: `http://127.0.0.1:3847/api/spotify/callback`
+
+   Spotify accepts a loopback address when the port is included. The page also shows the exact address for the port it is using. If the page opened on another port, use that port instead of 3847.
 4. Copy `data/spotify.example.json` to `data/spotify.json` and paste the Client ID into `clientId`. No client secret is used.
 
 Restart the page, look up a video, and choose **Connect Spotify**. After that, **Also save to Spotify Liked Songs** is checked. Uncheck it for a download that should not be saved. **Disconnect** forgets the login on this computer.
