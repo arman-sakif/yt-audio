@@ -1,6 +1,6 @@
 # YouTube to MP3
 
-A local page that turns one YouTube link into a 320 kbps MP3. Song title and artist are guessed from the video title, and you can edit them before they are written into the file.
+A local page that turns one YouTube link into an MP3. Choose 320 kbps, or the video's original max bitrate. Song title and artist are guessed from the video title, and you can edit them before they are written into the file.
 
 ## Run
 
@@ -22,9 +22,29 @@ The first launch needs a network connection. It downloads yt-dlp and ffmpeg into
 
 The browser saves each MP3 to your Downloads folder. Nothing is kept in this project.
 
+## Spotify Liked Songs
+
+A download can also save that song to your Spotify Liked Songs. The MP3 still downloads if Spotify cannot find a match or is unavailable.
+
+Spotify has to authorize the app once:
+
+1. Open the [Spotify developer dashboard](https://developer.spotify.com/dashboard) and create an app. A personal app in development mode is enough for your own account.
+2. The Spotify account that owns the app needs Premium. If Premium lapses, Spotify rejects the save.
+3. In the app settings, add this redirect URI with no port number: `http://127.0.0.1/api/spotify/callback`
+4. Copy `data/spotify.example.json` to `data/spotify.json` and paste the Client ID into `clientId`. No client secret is used.
+
+Restart the page, look up a video, and choose **Connect Spotify**. After that, **Also save to Spotify Liked Songs** is checked. Uncheck it for a download that should not be saved. **Disconnect** forgets the login on this computer.
+
+The save uses the song title and artist in the form. It only saves a Spotify track when those agree. The video length picks between copies of the same song.
+
 ## Quality
 
-YouTube's best audio is usually Opus or AAC around 128–160 kbps. This app encodes that stream once to a 320 kbps MP3 so it plays everywhere. The higher MP3 bitrate does not recreate detail YouTube never sent.
+After you look up a video, choose the MP3 bitrate:
+
+- **320 kbps** encodes YouTube's best audio to a 320 kbps MP3.
+- **Original max bitrate** encodes that same audio at the bitrate of the best stream on the video. The rate is snapped to the nearest standard MP3 rate, from 32 up to 320.
+
+YouTube's best audio is usually Opus or AAC around 128–160 kbps. The page shows that rate on the original option. Both choices are MP3 files, so they play in ordinary music apps. A higher MP3 rate stores the same YouTube audio; it cannot add detail the upload never had.
 
 ## Tests
 

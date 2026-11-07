@@ -6,6 +6,7 @@ import path from "node:path";
 import { resolveTools } from "./lib/binaries.js";
 import { getJob, publicJob, releaseJob, startDownload } from "./lib/download.js";
 import { preview } from "./lib/preview.js";
+import { likeTrack, spotifyCallback, spotifyLoginUrl, spotifyLogout, spotifyStatus } from "./lib/spotify.js";
 
 const publicDir = path.resolve(import.meta.dirname, "public");
 const startPort = Number(process.env.PORT) || 3847;
@@ -52,6 +53,44 @@ async function handle(req, res) {
     return;
   }
 
+  if (req.method === "GET" && url.pathname === "/api/spotify/status") {
+    sendJson(res, 200, await spotifyStatus());
+    return;
+  }
+
+  if (req.method === "GET" && url.pathname === "/api/spotify/login") {
+    const location = await spotifyLoginUrl(port);
+    res.writeHead(302, { location });
+    res.end();
+    return;
+  }
+
+  if (req.method === "GET" && url.pathname === "/api/spotify/callback") {
+    const location = await spotifyCallback({
+      code: url.searchParams.get("code"),
+      state: url.searchParams.get("state"),
+      error: url.searchParams.get("error"),
+    });
+    res.writeHead(302, { location });
+    res.end();
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/spotify/logout") {
+    sendJson(res, 200, await spotifyLogout());
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/spotify/like") {
+    const body = await readJson(req);
+    sendJson(res, 200, await likeTrack({
+      title: body.title,
+      artist: body.artist,
+      duration: body.duration,
+    }));
+    return;
+  }
+
   if (req.method === "POST" && url.pathname === "/api/download") {
     const body = await readJson(req);
     const job = startDownload({
@@ -60,6 +99,8 @@ async function handle(req, res) {
       artist: body.artist,
       duration: body.duration,
       videoTitle: body.videoTitle,
+      quality: body.quality,
+      sourceBitrate: body.sourceBitrate,
       tools,
     });
     sendJson(res, 202, { id: job.id });

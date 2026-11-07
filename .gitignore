@@ -3,5 +3,7 @@ bin/*
 downloads/*
 !downloads/.gitkeep
 node_modules/
+data/spotify.json
+data/spotify-session.json
 release/*
 !release/create-release.cmd

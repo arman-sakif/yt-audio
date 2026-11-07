@@ -122,6 +122,55 @@ button:disabled {
   background: #173129;
 }
 
+button.secondary {
+  color: var(--green);
+  background: transparent;
+}
+
+button.secondary:hover:not(:disabled) {
+  background: rgba(30, 61, 52, 0.06);
+}
+
+button.link {
+  padding: 0;
+  color: var(--muted);
+  font-size: 14px;
+  background: none;
+  border: 0;
+  text-decoration: underline;
+}
+
+.spotify {
+  margin-top: 14px;
+}
+
+.check {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.check input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--green);
+}
+
+.spotify-account {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.notice {
+  margin: 14px 0 0;
+  color: var(--muted);
+}
+
 .preview {
   display: grid;
   grid-template-columns: 168px 1fr;
@@ -160,6 +209,24 @@ img {
 
 .hint {
   margin-top: 8px;
+}
+
+.choice {
+  margin: 18px 0 0;
+  padding: 0;
+  border: 0;
+  min-inline-size: 0;
+}
+
+.choice legend {
+  padding: 0;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.choice .check + .check {
+  margin-top: 6px;
 }
 
 .bar {

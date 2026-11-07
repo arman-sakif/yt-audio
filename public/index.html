@@ -11,7 +11,7 @@
       <p class="eyebrow">On this computer</p>
       <h1>YouTube to MP3</h1>
       <p class="lede">
-        Paste a link. Get a 320 kbps MP3, with the song title and artist you type written into the file.
+        Paste a link. Get an MP3 at 320 kbps or at the video's original max bitrate, with the song title and artist you type written into the file.
       </p>
 
       <form id="lookup-form">
@@ -30,6 +30,7 @@
         </div>
       </form>
 
+      <p id="notice" class="notice" role="status" hidden></p>
       <p id="message" class="message" role="status" hidden></p>
 
       <section id="preview" hidden>
@@ -54,7 +55,37 @@
         </div>
         <p id="guess" class="hint"></p>
 
+        <fieldset class="choice">
+          <legend>MP3 bitrate</legend>
+          <label class="check">
+            <input type="radio" name="bitrate" value="320" checked />
+            320 kbps
+          </label>
+          <label class="check">
+            <input type="radio" name="bitrate" value="original" />
+            <span id="original-label">Original max bitrate</span>
+          </label>
+        </fieldset>
+
         <button type="button" id="download">Download 320 kbps MP3</button>
+        <div id="spotify" class="spotify" hidden>
+          <p id="spotify-setup" class="hint" hidden>
+            To also save songs to Liked Songs, put your Spotify Client ID in data/spotify.json.
+          </p>
+          <p id="spotify-connect-row" hidden>
+            <button type="button" id="spotify-connect" class="secondary">Connect Spotify</button>
+          </p>
+          <div id="spotify-on" hidden>
+            <label class="check">
+              <input id="spotify-like" type="checkbox" checked />
+              Also save to Spotify Liked Songs
+            </label>
+            <p class="meta spotify-account">
+              Connected as <span id="spotify-name"></span>
+              <button type="button" id="spotify-disconnect" class="link">Disconnect</button>
+            </p>
+          </div>
+        </div>
         <div id="bar-wrap" class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
           <div id="bar"></div>
         </div>
